@@ -10,7 +10,7 @@ all: bin/compiler
 
 bin/compiler: $(SRC) 
 	$(CXX) $(CXXFLAGS) -o $@ $(SRC)
-	@./bin/compiler
+	@./bin/compiler 
 
 
 runtime: runtime/runtime.clean	
