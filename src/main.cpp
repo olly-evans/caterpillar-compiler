@@ -3,8 +3,13 @@
 #include <sstream>
 
 void compile_fixnum(int x, std::ostream& out) {
-    out << "movl $" + std::to_string(x) + ", %eax" << std::endl;
-    out << "ret";
+
+    out << "\t.text\n";
+    out << "\t.globl c_entry\n";
+    out << "\t.type c_entry, @function\n";
+    out << "c_entry:\n";
+    out << "\tmovl $" + std::to_string(x) + ", %eax\n";
+    out << "\tret";
 }
 
 int main() {
@@ -21,8 +26,8 @@ int main() {
     // std::cout << oss.str();
 
     std::ofstream out;
-    out.open("out.s");
-    compile_fixnum(42, out);
+    if (!out.is_open()) out.open("out.s");
+    compile_fixnum(32, out);
     out.close();
     return 0;
 }
