@@ -2,20 +2,27 @@
 #include <fstream>
 #include <sstream>
 
-int main(int argc, char* argv[]) {
+void compile_fixnum(int x, std::ostream& out) {
+    out << "movl $" + std::to_string(x) + ", %eax" << std::endl;
+    out << "ret";
+}
 
-    if (argc != 2) return EXIT_FAILURE;
+int main() {
+
+    // if (argc != 2) return EXIT_FAILURE;
     
-    std::string filename = argv[1];
-    std::ifstream ifs(filename);
+    // std::string filename = argv[1];
+    // std::ifstream ifs(filename);
 
-    if (!ifs.is_open()) {std::cerr << "Could not open source file.\n"; return 1;}
-    std::ostringstream oss;
-    oss << ifs.rdbuf();
+    // if (!ifs.is_open()) {std::cerr << "Could not open source file.\n"; return 1;}
+    // std::ostringstream oss;
+    // oss << ifs.rdbuf();
 
-    std::cout << oss.str();
-    
+    // std::cout << oss.str();
 
-    // instantiate lexer and tokenise, IT DOESNT HAVE TO BE PERFECT (SPOILER: IT WON'T BE REGARDLESS)
+    std::ofstream out;
+    out.open("out.s");
+    compile_fixnum(42, out);
+    out.close();
     return 0;
 }
